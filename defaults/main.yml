@@ -1,4 +1,4 @@
 ---
-ansible_user_key_location: 'sshkeys/ansible.pub'
-ansible_user: ansible
+remote_ansible_user_key_location: 'sshkeys/ansible.pub'
+remote_ansible_user: ansible
 selinux_enable: true

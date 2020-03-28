@@ -7,7 +7,7 @@
 
 - name: Ensure Ansible User exists
   user:
-    name: "{{ ansible_user }}"
+    name: "{{ remote_ansible_user }}"
     comment: Ansible Config User
     group: "{{ admin_group }}"
     state: present
@@ -16,16 +16,16 @@
 
 - name: Install Ansible User SSH Key
   authorized_key:
-    user: "{{ ansible_user }}"
+    user: "{{ remote_ansible_user }}"
     state: present
-    path: /home/{{ ansible_user }}/.ssh/authorized_keys
-    key: "{{ lookup('file', ansible_user_key_location) }}"
+    path: /home/{{ remote_ansible_user }}/.ssh/authorized_keys
+    key: "{{ lookup('file', remote_ansible_user_key_location) }}"
 
 - name: Allow passwordless sudo for Ansible User
   copy:
     mode: "0644"
-    content: "{{ ansible_user }} ALL=(ALL) NOPASSWD: ALL"
-    dest: "/etc/sudoers.d/{{ ansible_user }}"
+    content: "{{ remote_ansible_user }} ALL=(ALL) NOPASSWD: ALL"
+    dest: "/etc/sudoers.d/{{ remote_ansible_user }}"
 
 - name: Lock Up Root
   user:
@@ -43,7 +43,7 @@
 
 - name: Lock up Ansible User
   user:
-    name: "{{ ansible_user }}"
+    name: "{{ remote_ansible_user }}"
     comment: lock up now that pubkey installed
     password_lock: true
   changed_when: false

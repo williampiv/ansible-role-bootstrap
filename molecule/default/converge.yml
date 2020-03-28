@@ -3,8 +3,8 @@
   hosts: all
   become: true
   vars:
-    ansible_user_key_location: 'test.pub'
-    ansible_user: ansible
+    remote_ansible_user_key_location: 'test.pub'
+    remote_ansible_user: ansible
     selinux_enable: true
   pre_tasks:
     - name: Update apt cache.
