@@ -4,7 +4,7 @@ services: docker
 
 env:
   global:
-    - ROLE_NAME: ansible-role-bootstrap
+    - ROLE_NAME: bootstrap
   matrix:
     - MOLECULE_DISTRO: centos8
     - MOLECULE_DISTRO: centos7
@@ -17,6 +17,11 @@ env:
 
 install:
   - pip install molecule yamllint ansible-lint docker
+
+before_script:
+  - cd ../
+  - mv ansible-role-$ROLE_NAME williampiv.$ROLE_NAME
+  - cd williampiv.$ROLE_NAME
 
 
 script:
