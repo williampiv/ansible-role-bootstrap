@@ -5,6 +5,11 @@
 - include: "selinux/{{ ansible_os_family }}.yml"
   when: selinux_enable
 
+- name: Ensure admin group exists
+  group:
+    name: "{{ admin_group }}"
+    state: present
+
 - name: Ensure Ansible User exists
   user:
     name: "{{ remote_ansible_user }}"
@@ -26,6 +31,12 @@
     mode: "0644"
     content: "{{ remote_ansible_user }} ALL=(ALL) NOPASSWD: ALL"
     dest: "/etc/sudoers.d/{{ remote_ansible_user }}"
+
+- name: Allow passwordless sudo for admin group
+  copy:
+    mode: "0644"
+    content: "%{{ admin_group }} ALL=(ALL) NOPASSWD: ALL"
+    dest: "/etc/sudoers.d/{{ admin_group }}"
 
 - name: Lock Up Root
   user:
