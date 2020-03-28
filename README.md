@@ -38,6 +38,14 @@ If you are enabling the SSH lockdown, this role will not install an SSH server, 
     remote_ansible_user: ansible
     selinux_enable: true
 
+## Playbook Run
+
+In most cases, you'll need to provide a password (and sudo password) to get a stock system bootstrapped.
+
+This assumes you have defined `ansible_ssh_user: someuser` somewhere in your variables. It is also assumed that your `remote_ansible_user` will probably be the same as the `ansible_ssh_user` (but this role give you the option to have them differ).
+
+In your initial run, you'll most likely need to use `-K` and `-k` to allow you to provide the SSH user password, and sudo password. Once bootstrap has run, you should have access to run Ansible against the target machine, without having to provide a password.
+
 ## License
 
 GNU GPLv3
