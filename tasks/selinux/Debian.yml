@@ -1,4 +1,4 @@
-- name: Do SELinux for Ubuntu/Debian
+- name: Configure SELinux for Ansible on Ubuntu/Debian
   apt:
     update_cache: true
     name: python-selinux
