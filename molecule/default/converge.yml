@@ -3,7 +3,7 @@
   hosts: all
   become: true
   vars:
-    ansible_user_key_location: '${MOLECULE_PLAYBOOK:-test.pub}'
+    ansible_user_key_location: 'test.pub'
     ansible_user: ansible
     selinux_enable: true
   pre_tasks:
