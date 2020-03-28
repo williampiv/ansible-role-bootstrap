@@ -16,7 +16,7 @@ env:
     - MOLECULE_DISTRO: debian9
 
 install:
-  - pip install molecule yamllint ansible-lint docker
+  - pip install ansible molecule yamllint ansible-lint docker
 
 before_script:
   - cd ../
@@ -25,6 +25,7 @@ before_script:
 
 
 script:
+  - molecule lint
   - molecule test
 
 notifications:
