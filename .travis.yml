@@ -4,7 +4,7 @@ services: docker
 
 env:
   global:
-    - ROLE_NAME: bootstrap
+    - ROLE_NAME: ansible-role-bootstrap
   matrix:
     - MOLECULE_DISTRO: centos8
     - MOLECULE_DISTRO: centos7
