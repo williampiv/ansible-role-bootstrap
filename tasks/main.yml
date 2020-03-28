@@ -3,7 +3,7 @@
   include_vars: "{{ ansible_os_family }}.yml"
 
 - include: "selinux/{{ ansible_os_family }}.yml"
-  when: (selinux_enable == true)
+  when: selinux_enable
 
 - name: Ensure Ansible User exists
   user:
