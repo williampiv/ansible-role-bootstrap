@@ -5,4 +5,4 @@
     regexp: "^PermitRootLogin"
     line: "#PermitRootLogin"
     state: present
-  notify: Restart ssh
+  notify: Restart sshd
