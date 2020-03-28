@@ -1,12 +1,12 @@
 ---
 - name: Configure SELinux for Ansible on CentOS/RHEL/Fedora (Python 3)
-  when: ansible_distribution_version.split('.')[0] > 7
+  when: ansible_distribution_major_version == '8'
   yum:
     name: libselinux-python3
     state: present
 
 - name: Configure SELinux for Ansible on CentOS/RHEL/Fedora (Python 2)
-  when: ansible_distribution_version.split('.')[0] < 8
+  when: ansible_distribution_major_version < '8'
   yum:
     name: libselinux-python
     state: present
