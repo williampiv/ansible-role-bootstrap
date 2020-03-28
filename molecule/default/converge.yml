@@ -6,6 +6,7 @@
     remote_ansible_user_key_location: 'test.pub'
     remote_ansible_user: ansible
     selinux_enable: true
+    ssh_lockdown: false
   pre_tasks:
     - name: Update apt cache.
       apt: update_cache=yes cache_valid_time=600

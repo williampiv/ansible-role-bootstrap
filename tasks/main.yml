@@ -44,13 +44,8 @@
     comment: use not root
     password_lock: true
 
-- name: Disable Root SSH
-  lineinfile:
-    path: /etc/ssh/sshd_config
-    regexp: "^PermitRootLogin"
-    line: "#PermitRootLogin"
-    state: present
-  notify: Restart ssh
+- include: "ssh.yml"
+  when: ssh_lockdown
 
 - name: Lock up Ansible User
   user:
