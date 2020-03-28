@@ -1,0 +1,5 @@
+- name: Do SELinux for Ubuntu/Debian
+  apt:
+    update_cache: true
+    name: python-selinux
+    state: present

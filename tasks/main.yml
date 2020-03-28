@@ -1,0 +1,49 @@
+---
+- name: Load OS Variables
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- include: "selinux/{{ ansible_os_family }}.yml"
+  when: (selinux_enable == true)
+
+- name: Ensure Ansible User exists
+  user:
+    name: "{{ ansible_user }}"
+    comment: Ansible Config User
+    group: "{{ admin_group }}"
+    state: present
+    system: true
+  changed_when: false
+
+- name: Install Ansible User SSH Key
+  authorized_key:
+    user: "{{ ansible_user }}"
+    state: present
+    path: /home/{{ ansible_user }}/.ssh/authorized_keys
+    key: "{{ lookup('file', ansible_user_key_location) }}"
+
+- name: Allow passwordless sudo for Ansible User
+  copy:
+    mode: "0644"
+    content: "{{ ansible_user }} ALL=(ALL) NOPASSWD: ALL"
+    dest: "/etc/sudoers.d/{{ ansible_user }}"
+
+- name: Lock Up Root
+  user:
+    name: root
+    comment: use not root
+    password_lock: true
+
+ - name: Disable Root SSH
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^PermitRootLogin"
+    line: "#PermitRootLogin"
+    state: present
+  notify: Restart ssh
+
+- name: Lock up Ansible User
+  user:
+    name: "{{ ansible_user }}"
+    comment: lock up now that pubkey installed
+    password_lock: true
+  changed_when: false

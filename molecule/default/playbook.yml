@@ -1,0 +1,15 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  vars:
+    ansible_user_key_location: '${MOLECULE_PLAYBOOK:-test.pub}'
+    ansible_user: ansible
+    selinux_enable : true
+  pre_tasks:
+    - name: Update apt cache.
+      apt: update_cache=yes cache_valid_time=600
+      when: ansible_os_family == 'Debian'
+      changed_when: false
+  roles:
+    - bootstrap

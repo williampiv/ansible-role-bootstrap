@@ -1,0 +1,28 @@
+---
+galaxy_info:
+  author: William Perdue
+  description: Ansible role for doing initial bootstrap magic
+  license: GPLv3
+  min_ansible_version: 2.6
+  platforms:
+    - name: EL
+      versions:
+        - 8
+        - 7
+        - 6
+    - name: Ubuntu
+      versions:
+        - bionic
+        - xenial
+    - name: Debian
+      versions:
+        - wheezy
+        - jessie
+        - stretch
+  galaxy_tags:
+    - system
+    - networking
+    - bootstrap
+dependencies: []
+
+
