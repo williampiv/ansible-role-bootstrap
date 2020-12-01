@@ -1,5 +1,13 @@
 ---
-- name: Configure SELinux for Ansible on Ubuntu/Debian
+- name: Configure SELinux for Ansible on Ubuntu/Debian (Python 3)
+  when: ansible_distribution_major_version >= '20' or ansible_distribution == 'Debian'
+  apt:
+    update_cache: true
+    name: python3-selinux
+    state: present
+
+- name: Configure SELinux for Ansible on Ubuntu/Debian (Python 2)
+  when: ansible_distribution_major_version < '20' and ansible_distribution == 'Ubuntu'
   apt:
     update_cache: true
     name: python-selinux
